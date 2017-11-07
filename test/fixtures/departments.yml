@@ -3,7 +3,9 @@
 one:
   area: MyString
   nota: 1.5
+  hijo: 1
 
 two:
   area: MyString
   nota: 1.5
+  hijo: 1
