@@ -39,5 +39,4 @@
 
 * El `Content-type` puede ser `application/x-www-form-urlencoded` o `application/json`.
 
-
 # LICENCIA MIT
