@@ -41,7 +41,7 @@ class DepartmentsController < ApplicationController
     else
       papa = update_nota papa
     end
-    json_response(papa)
+    render json: { "message" => "Departamento actualizado con exito", "status" => 201 }
   end
 
   def update_nota parent
@@ -67,6 +67,6 @@ class DepartmentsController < ApplicationController
     else # ya el es el papa mayor
       papa = update_nota papa
     end
-    json_response(papa)
+    render json: { "message" => "Departamento agregado con exito", "status" => 201 }
   end
 end
