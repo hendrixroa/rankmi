@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'departments/index'
 
-  put 'departments/update'
+  put 'departments/:id', to: 'departments#update'
 
   post 'departments/create'
 
