@@ -20,7 +20,28 @@ class DepartmentsController < ApplicationController
   end
 
   def update
-    render json: params[:id]
+    id_padre = params[:padre]
+    department = Department.find_by(id: params[:id])
+    id_padre_anterior = department.padre
+    department.update(padre: id_padre)
+    hijos = Department.where(padre: id_padre_anterior)
+    padre_anterior = Department.where(id: id_padre_anterior)
+    #actualizarse a si mismo
+    cant_hijos = hijos.count
+    if cant_hijos > 0
+      sum_hijos = hijos.sum("nota") 
+      total = sum_hijos/cant_hijos
+      padre_anterior.update(nota: total)
+    end
+    papa = department.padre
+    if Integer(papa) > 0
+      while papa != 0 do  
+        papa = update_nota papa
+      end
+    else
+      papa = update_nota papa
+    end
+    json_response(papa)
   end
 
   def update_nota parent
