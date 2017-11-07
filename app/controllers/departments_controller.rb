@@ -23,6 +23,30 @@ class DepartmentsController < ApplicationController
     render json: params[:id]
   end
 
+  def update_nota parent
+    object_hijos = Department.where(padre: parent)
+    sumatoria = object_hijos.sum("nota")
+    cantidad = object_hijos.count
+    nota_total = sumatoria/cantidad
+    object_padre = Department.find_by(id: parent)
+    object_padre.update(nota: nota_total)
+    return object_padre.padre
+  end
+
   def create
+    #primero recalculamos
+    nota_body =  5.3 #el que vendra en el post
+    area_body = "Devops"
+    department = Department.create(nota: nota_body, area: area_body, padre: params[:id])
+    #recalcular las notas
+    if Integer(params[:id]) > 0 #caso hijo lejano
+      papa = params[:id]
+      while papa != 0 do  
+        papa = update_nota papa
+      end
+    else # ya el es el papa mayor
+      update_nota papa
+    end
+    render json: "hola"
   end
 end

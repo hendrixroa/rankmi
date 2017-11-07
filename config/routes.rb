@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   put 'departments/:id', to: 'departments#update'
 
-  post 'departments/create'
+  post 'departments/:id', to: 'departments#create'
 
 end
