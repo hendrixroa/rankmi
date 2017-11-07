@@ -33,20 +33,19 @@ class DepartmentsController < ApplicationController
     return object_padre.padre
   end
 
-  def create
-    #primero recalculamos
-    nota_body =  5.3 #el que vendra en el post
-    area_body = "Devops"
+  def create       
+    nota_body =  params[:nota]
+    area_body = params[:area]
     department = Department.create(nota: nota_body, area: area_body, padre: params[:id])
-    #recalcular las notas
+    papa = params[:id]
     if Integer(params[:id]) > 0 #caso hijo lejano
       papa = params[:id]
       while papa != 0 do  
         papa = update_nota papa
       end
     else # ya el es el papa mayor
-      update_nota papa
+      papa = update_nota papa
     end
-    render json: "hola"
+    json_response(papa)
   end
 end
