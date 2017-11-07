@@ -22,6 +22,9 @@ class DepartmentsController < ApplicationController
   def update
     id_padre = params[:padre]
     department = Department.find_by(id: params[:id])
+    if department == nil
+      return false
+    end
     id_padre_anterior = department.padre
     department.update(padre: id_padre)
     hijos = Department.where(padre: id_padre_anterior)
